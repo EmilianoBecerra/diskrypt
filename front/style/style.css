@@ -3,7 +3,6 @@
   --border-radius: 5px;
 }
 
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -12,18 +11,18 @@
 
 html {
   height: 100%;
-  min-width: 100vw;
+  max-width: 100vw;
   font-size: 20px;
 }
 
 body {
-  min-height: 100vh;
-  width: 100%;
-  padding: 10px;
   background-color: black;
+  color: white;
   display: flex;
   flex-direction: column;
-  color: white
+  min-height: 100vh;
+  padding: 10px;
+  width: 100%;
 }
 
 header {
@@ -40,22 +39,22 @@ header {
   font-weight: bold;
   height: 100px;
   justify-content: center;
+  padding: 70px;
   text-align: center;
   width: 100%;
-  padding: 70px;
 }
 
 main {
-  display: flex;
-  height: 100%;
-  margin-top: 5px;
-  border: var(--layout-border);
-  flex: 1;
-  flex-direction: column;
-  justify-content: center;
   align-items: center;
   border-radius: var(--border-radius);
-
+  border: var(--layout-border);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  justify-content: center;
+  margin-top: 5px;
+  padding: 10px;
 }
 
 .subtitle {
@@ -64,15 +63,16 @@ main {
 }
 
 .dropzone {
-  width: 50%;
-  height: 400px;
+  align-items: center;
+  border-radius: 3px;
+  border: 3px dotted white;
+  cursor: pointer;
   display: flex;
   flex-direction: column;
+  height: 400px;
   justify-content: center;
-  align-items: center;
-  border: 3px dotted white;
-  border-radius: 3px;
   padding: 10px;
+  width: 70%;
 }
 
 .dropzone p {
@@ -81,22 +81,20 @@ main {
 
 
 .instruction {
-  list-style: none;
-  margin-top: 10px;
   border: 3px double red;
-  padding: 10px;
-
+  list-style: decimal;
+  margin-top: 10px;
+  padding: 30px;
 }
 
 .instruction li {
   color: red;
   font-size: 20px;
-  font-weight: bold;
   letter-spacing: 1px;
   margin: 2px;
 }
 
-.whitout-files {
+.without-files {
   display: flex;
   justify-content: center;
   margin-top: 20px;
@@ -111,51 +109,88 @@ main {
 
 .ulFiles {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-auto-rows: 200px;
   gap: 10px;
+  grid-auto-rows: 200px;
+  grid-template-columns: repeat(3, 1fr);
   list-style: none;
   width: 100%;
 }
 
 .ulFiles li {
-  border: var(--layout-border);
-  padding: 10px;
+  align-items: center;
   border-radius: var(--border-radius);
-  text-align: center;
-  font-size: 18px;
+  border: var(--layout-border);
   display: flex;
   flex-direction: column;
+  font-size: 18px;
   justify-content: space-between;
-  align-items: center;
+  padding: 10px;
+  text-align: center;
 }
 
 .inputPass {
-  width: 60%;
-  padding: 5px;
   border-radius: var(--border-radius);
-  outline: none;
   cursor: pointer;
+  outline: none;
+  padding: 5px;
+  width: 60%;
 }
 
-#pass, #btn-submit{
-  margin-top: 10px;
-  padding: 10px;
-  width: 200px;
+#pass,
+#btn-submit {
   border-radius: var(--border-radius);
-  outline: none;
   font-weight: bold;
+  margin-top: 10px;
+  outline: none;
+  padding: 10px;
   text-align: center;
+  width: 200px;
 }
 
 .btn-disabled {
-  opacity: 0.5;
   cursor: not-allowed;
+  opacity: 0.5;
   pointer-events: none;
 }
 
 .btnDownload {
-  width: 60%;
-  padding: 5px;
   border-radius: var(--border-radius);
+  padding: 5px;
+  width: 60%;
+}
+
+.toast {
+  animation: slideIn 0.3s ease;
+  border-radius: var(--border-radius);
+  bottom: 20px;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 12px 20px;
+  position: fixed;
+  right: 20px;
+  z-index: 1000;
+}
+
+.toast-error {
+  background-color: #ff4444;
+  border-left: 4px solid #cc0000;
+  color: white;
+}
+
+.toast-success {
+  background-color: #00aa00;
+  border-left: 4px solid #007700;
+  color: white;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }

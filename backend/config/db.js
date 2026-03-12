@@ -1,5 +1,6 @@
 import Database from "better-sqlite3";
-const db = new Database("./storage.db");
+const urlDB =  process.env.DB_PATH;
+const db = new Database(urlDB);
 
 db.exec(`
     CREATE TABLE IF NOT EXISTS files(

@@ -11,7 +11,6 @@ export function getAllFile() {
   return db.prepare("SELECT * FROM files").all();
 }
 
-
 export function getByIdFile(id) {
   return db.prepare("SELECT * FROM files WHERE id = ?").get(id);
 }

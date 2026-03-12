@@ -9,6 +9,7 @@ import 'dotenv/config';
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+const max = process.env.MAX_FILE_SIZE;
 
 const limiter = rateLimit({
   windowMs: 5 * 60 * 1000,
@@ -20,15 +21,15 @@ const limiter = rateLimit({
 
 
 app.use(cors({
-  origin: process.env.URL || "http://127.0.0.1:5500"
+  origin: process.env.URL || "http://localhost:5500"
 }));
 app.use(limiter);
 app.use(helmet())
 app.use(express.json({
-  limit: "5mb"
+  limit: max
 }));
 app.use(urlencoded({
-  limit: '5mb', extended: true
+  limit: max, extended: true
 }))
 
 app.use(filesRouter);

@@ -1,7 +1,8 @@
+import { API_URL } from "../config/config.js";
 
 
 export async function postData(file, name, type) {
-  const response = await fetch("http://localhost:3000/saveFile", {
+  const response = await fetch(`${API_URL}/saveFile`, {
     method: "POST",
     body: JSON.stringify({ file, name, type }),
     headers: {

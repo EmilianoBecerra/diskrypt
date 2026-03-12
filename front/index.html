@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8">
@@ -9,7 +9,7 @@
   <script src="./js/data/getAllData.js" defer type="module"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <link rel="stylesheet" href="./style/style.css">
-  <title>F1l3 St0r4g3</title>
+  <title>Diskrypt</title>
 </head>
 
 <body>
@@ -21,13 +21,14 @@
   </header>
   <main>
     <div id="dropzone" class="dropzone">
-      <p>Arrastrá el archivo que quieras guardar.</p>
-      <ul class="instruction">
+      <input type="file" id="fileInput" style="display: none;">
+      <p>Arrastrá el archivo que quieras guardar o hace click en el recuadro.</p>
+      <ol class="instruction">
         <li>El nombre del archivo en tu pc, se verá en el listado de archivos.</li>
         <li>La contraseña que ingreses al subir el archivo, será la llave para desencriptarlo luego.</li>
         <li>El archivo se descarga cuando se ingresa la contraseña correcta.</li>
         <li>El archivo se borra automaticamente una vez se descargue.</li>
-      </ul>
+      </ol>
     </div>
     <input type="password" id="pass" pass="true" style="display: none;" placeholder="File Pasword">
     <button id="btn-submit" style="display: none;">Guardar archivo</button>

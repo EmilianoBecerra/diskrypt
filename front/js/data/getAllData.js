@@ -1,7 +1,9 @@
+import { API_URL } from "../config/config.js";
+
 const allFile = document.getElementById("allInfo");
 
 export async function getAllData() {
-  const url = "http://localhost:3000/files";
+  const url = `${API_URL}/files`;
   try {
     const response = await fetch(url);
     if (!response.ok) {
@@ -19,13 +21,12 @@ async function renderFiles() {
     const files = await getAllData();
     if (!files || files.length === 0) {
       allFile.classList.remove("divAllFiles");
-      allFile.classList.add("whitout-files")
+      allFile.classList.add("without-files")
       const p = document.createElement("p");
-      p.classList.add("whiout");
       p.textContent = "No hay archivos guardados.";
       allFile.appendChild(p);
     } else {
-      allFile.classList.remove("whitout-files");
+      allFile.classList.remove("without-files");
       allFile.textContent = "";
       allFile.classList.add("divAllFiles");
       const ul = document.createElement("ul");

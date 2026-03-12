@@ -1,24 +1,23 @@
 export const decryptFile = (data, mimeType, password, filename) => {
   try {
-    const bytesDesencriptados = CryptoJS.AES.decrypt(data, password);
-
-    if (!bytesDesencriptados.sigBytes || bytesDesencriptados.sigBytes <= 0) {
-      throw new Error("Contraseña incorrecta");
+    const decrypted = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Utf8);
+    if(!decrypted.startsWith("DISKRYPT:")) {
+      return null;
     }
-    const typedArray = wordToUint8Array(bytesDesencriptados);
-
-    const origanlFile = new Blob([typedArray], { type: mimeType });
-
-    const url = URL.createObjectURL(origanlFile);
+    const base64 = decrypted.slice("DISKRYPT:".length);
+    const wordArray = CryptoJS.enc.Base64.parse(base64);
+    const typedArray = wordToUint8Array(wordArray);
+    const blob = new Blob([typedArray], {type: mimeType});
+    const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
     a.href = url;
     a.download = filename;
     a.click();
-
     URL.revokeObjectURL(url);
+    return true;
   } catch (error) {
-    console.error("Error al transformar el archivo");
+    return null;
   }
 }
 

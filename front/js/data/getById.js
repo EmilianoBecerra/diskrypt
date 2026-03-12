@@ -1,6 +1,9 @@
+import { API_URL } from "../config/config.js";
+
 export async function getById(id) {
   try {
-    const response = await fetch(`http://localhost:3000/files/${id}`);
+    const response = await fetch(`${API_URL}/files/${id}`);
+    if(!response.ok) throw new Error(`Error ${response.status}`);
     const data = await response.json();
     return data.data;
   } catch (error) {
