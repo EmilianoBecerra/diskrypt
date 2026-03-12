@@ -8,6 +8,7 @@ const fileInput = document.getElementById("fileInput");
 const dropZone = document.getElementById("dropzone");
 const pass = document.getElementById("pass");
 const submit = document.getElementById("btn-submit");
+const passInstructions = document.getElementById("passIntructios")
 let file;
 let password;
 let fileEncrypt;
@@ -35,6 +36,8 @@ dropZone.addEventListener("drop", (event) => {
       return;
     }
     pass.style.display = "block";
+    console.log(passInstructions);
+    passInstructions.style.display = "block";
   }
 })
 
@@ -47,6 +50,7 @@ fileInput.addEventListener("change", (event) => {
       return;
     }
     pass.style.display = "block";
+    passInstructions.style.display = "block";
   }
 
 })
