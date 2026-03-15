@@ -1,10 +1,10 @@
+import 'dotenv/config';
 import express, { urlencoded } from "express";
-import db from "./config/db.js";
+import "./config/db.js";
 import { rateLimit } from "express-rate-limit";
 import filesRouter from "./routes/files.js";
 import cors from "cors";
 import helmet from "helmet";
-import 'dotenv/config';
 
 
 const app = express();
@@ -21,7 +21,7 @@ const limiter = rateLimit({
 
 
 app.use(cors({
-  origin: process.env.URL || "http://localhost:5500"
+  origin: process.env.URL || "http://127.0.0.1:5500"
 }));
 app.use(limiter);
 app.use(helmet())

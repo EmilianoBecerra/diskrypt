@@ -6,10 +6,10 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS files(
       id TEXT PRIMARY KEY,
       filename TEXT NOT NULL,
-      DATA TEXT NOT NULL,
+      data TEXT NOT NULL,
       type TEXT NOT NULL
     )
-  `);
+  `)
 
 
 export default db;

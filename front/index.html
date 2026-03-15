@@ -4,9 +4,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <script src="./js/index.js" defer type="module"></script>
-  <script src="./js/data/handleData.js" defer type="module"></script>
-  <script src="./js/data/getAllData.js" defer type="module"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+    rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <link rel="stylesheet" href="./style/style.css">
   <title>Diskrypt</title>
@@ -16,34 +19,35 @@
   <header>
     <h1>Diskrypt</h1>
     <h3 class="subtitle">
-      &bemptyv; Envia archivos encriptados a cualquier parte del mundo &bemptyv;
+      Compartí archivos encriptados y sin identificación.
     </h3>
+    <a href="./views/files.html" class="navBar-link">Ir al Almacén de archivos</a>
   </header>
-  <main>
-    <div id="dropzone" class="dropzone">
-      <input type="file" id="fileInput" style="display: none;">
-      <p>Arrastrá el archivo que quieras guardar o hace click en el recuadro.</p>
-      <ol class="instruction">
+  <main id="container">
+    <div>
+      <ol class="instructions">
         <li>El nombre del archivo en tu pc, se verá en el listado de archivos.</li>
-        <li>La contraseña que ingreses al subir el archivo, será la llave para desencriptarlo luego.</li>
-        <li>El archivo se descarga cuando se ingresa la contraseña correcta.</li>
-        <li>El archivo se borra automaticamente una vez se descargue.</li>
+        <li>La contraseña es la llave de seguridad para descargarlo.</li>
+        <li>Se descarga y borra con la contraseña o al cumplirse 24 horas de subido.</li>
       </ol>
     </div>
-    <input type="password" id="pass" pass="true" style="display: none;" placeholder="File Pasword">
-    <ul id="passIntructios" class="passIntructios" style="display: none;">
-      <li>Mínimo 12 caracteres</li>
-      <li>Al menos una mayúscula</li>
-      <li>Al menos una minúscula</li>
-      <li>Al menos una número</li>
-      <li>Al menos un carácter especial</li>
-    </ul>
-    <button id="btn-submit" style="display: none;">Guardar archivo</button>
-    <div id="allInfo">
-
+    <div id="dropzone" class="dropzone">
+      <input type="file" id="fileInput" style="display: none;">
+      <p id="msg-dropzone">Arrastrá el archivo que quieras guardar o hace click en el recuadro.</p>
     </div>
-  </main>
 
+    <template data-js="template-password">
+      <form onsubmit="return false">
+        <input type="password" placeholder="Ingresa contraseña" name="password-index" data-js="password">
+        <ul data-js="passIntroductions" class="passIntroductions"></ul>
+        <button data-js="btn-submit" disabled></button>
+      </form>
+    </template>
+
+  </main>
+  <footer>
+    Desarrollado por Emiliano Becerra - 2026
+  </footer>
 </body>
 
 </html>
