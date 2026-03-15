@@ -4,6 +4,7 @@ import { convertFile } from "../utils/ConvertFile.js";
 import { encryptWithSecretKey } from "../utils/encrypt.js"
 import { removePasswordError } from "../utils/removePasswordError.js";
 import { validatePassword } from "../utils/validatePassword.js";
+import { showModal } from "../ui/modal.js";
 
 
 export function initUploadPage() {
@@ -40,9 +41,7 @@ export function initUploadPage() {
       file = event.dataTransfer.files[0];
       if (file) {
         if (file.size > 5 * 1024 * 1024) {
-
           showModal("El archivo es demasiado grande. Máximo 5MB");
-
           return;
         }
         renderPassword(container, "Guardar Archivo", password);

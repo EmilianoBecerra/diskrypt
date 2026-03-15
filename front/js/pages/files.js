@@ -3,6 +3,7 @@ import { renderFile } from "../ui/renderFile.js";
 import { decryptFile } from "../utils/decrypt.js";
 import { removePasswordError } from "../utils/removePasswordError.js";
 import { validatePassword } from "../utils/validatePassword.js";
+import {showModal} from "../ui/modal.js"
 
 
 export async function initFilesPage() {
@@ -60,12 +61,15 @@ export async function initFilesPage() {
 
   main.addEventListener("click", async (event) => {
     if (event.target.dataset.js === 'btn-submit' && event.target.id !== "") {
-      const file = await getFileID(event.target.id);
-      const decrypt = decryptFile(file.DATA, file.type, pass, file.name);
+      const id = event.target.id;
+      const file = await getFileID(id);
+      const decrypt = decryptFile(file.DATA, file.type, pass, file.filename);
       if (!decrypt) {
         showModal("Contraseña incorrecta");
       } else {
-        deleteFile(button.id);
+        if (!file.filename.includes("CV_Becerra")) {
+          deleteFile(id);
+        }
         location.reload();
       }
     }
