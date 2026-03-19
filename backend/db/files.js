@@ -15,6 +15,10 @@ export function getByIdFile(id) {
   return db.prepare("SELECT * FROM files WHERE id = ?").get(id);
 }
 
+export function deleteAll() {
+  db.prepare("DELETE FROM files").run();
+}
+
 export function deleteOneFile(id) {
   return db.prepare("DELETE FROM files WHERE id = ?").run(id);
 }

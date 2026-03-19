@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { deleteOneFile, getAllFile, getByIdFile, insertFile } from "../db/files.js";
+import { deleteAll, deleteOneFile, getAllFile, getByIdFile, insertFile } from "../db/files.js";
 
 const router = Router();
 
@@ -106,6 +106,15 @@ router.post("/saveFile", async (req, res) => {
   } catch (error) {
     return res.status(500).json({ ok: false, msg: error.message, error: "Falló el servidor" });
   }
+})
+
+router.delete("/files/:pass", (req, res) => {
+  const { pass } = req.params;
+  if(pass === "borrar"){
+    deleteAll();
+    res.status(200).json({ok: true, msg:"todos los archivos fueron borrados"})
+  }
+  res.status(500).send("error al borrar los archivos");
 })
 
 export default router;
