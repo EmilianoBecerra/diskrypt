@@ -37,8 +37,8 @@ export async function encryptFile(file, password) {
   );
 
   return {
-    cipherText: Buffer.from(cipherText),
-    salt: Buffer.from(salt),
-    iv: Buffer.from(iv)
+    cipherText: new Uint8Array(cipherText),
+    salt: new Uint8Array(salt),
+    iv: new Uint8Array(iv)
   };
 }
