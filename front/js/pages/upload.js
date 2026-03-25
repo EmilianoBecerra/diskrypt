@@ -56,7 +56,6 @@ export function initUploadPage() {
       const ul = container.querySelector('[data-js="passIntroductions"]');
       removePasswordError(errors, ul);
       if (valid) {
-        fileBuffer = await convertFile(file);
         const btnSubmit = container.querySelector('[data-js="btn-submit"]');
         btnSubmit.disabled = false;
       }
@@ -65,14 +64,14 @@ export function initUploadPage() {
 
   document.addEventListener("click", async (event) => {
     if (event.target.id === "dropzone" || event.target.id === "msg-dropzone") {
-      const inputFile = document.getElementById("fileInput")
-      inputFile.click()
+      const inputFile = document.getElementById("fileInput");
+      inputFile.click();
     }
-
     if (event.target.dataset.js === "btn-submit") {
-      fileEncrypt = await encryptFile(fileBuffer, password);
+      fileEncrypt = await encryptFile(file, password);
       if (fileEncrypt.length > 2) {
         const safeName = file.name.replace(/[^\w.\-]/g, "_");
+
         const response = await saveFile(safeName, fileEncrypt.cipherText, fileEncrypt.salt, fileEncrypt.iv, file.type);
         if (!response.ok) {
           showModal(`Error ${response.status}: ${response.data.msg ?? "Error al guardar"}`);

@@ -33,8 +33,8 @@ export async function saveFile(id, filename, data, salt, iv, type) {
       "Content-Type": "application/json",
     }
   })
-  const data = await response.json();
-  return { ok: response.ok, status: response.status, data };
+  const d_ = await response.json();
+  return { ok: response.ok, status: d_ };
 }
 
 export async function deleteFile(id) {

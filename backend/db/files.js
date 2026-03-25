@@ -1,8 +1,6 @@
 import { randomUUID } from "node:crypto";
 import db from "../config/db.js";
 
-
-/* safeName, fileEncrypt.cipherText, fileEncrypt.salt, fileEncrypt.iv, file.type */
 export function insertFile(filename, data, salt, iv, type) {
   const id = randomUUID();
   db.prepare("INSERT INTO files (id, filename, data, salt, iv, type) VALUES (?, ?, ?, ?, ?, ?)").run(id, filename, data, salt, iv, type);
