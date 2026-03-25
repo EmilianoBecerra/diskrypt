@@ -69,9 +69,8 @@ export function initUploadPage() {
     }
     if (event.target.dataset.js === "btn-submit") {
       fileEncrypt = await encryptFile(file, password);
-      if (fileEncrypt.length > 2) {
+      if (fileEncrypt.cipherText) {
         const safeName = file.name.replace(/[^\w.\-]/g, "_");
-
         const response = await saveFile(safeName, fileEncrypt.cipherText, fileEncrypt.salt, fileEncrypt.iv, file.type);
         if (!response.ok) {
           showModal(`Error ${response.status}: ${response.data.msg ?? "Error al guardar"}`);
