@@ -4,8 +4,11 @@ export async function getFileID(id) {
   try {
     const response = await fetch(`${API_URL}/files/${id}`);
     if (!response.ok) throw new Error(`Error ${response.status}`);
-    const data = await response.json();
-    return data.data;
+    const { data } = await response.json();
+    const cipherText = new Uint8Array(data.data.data);
+    const salt = new Uint8Array(data.salt.data);
+    const iv = new Uint8Array(data.iv.data);
+    return { cipherText, salt, iv };
   } catch (error) {
     console.error("Error al obtener el archivo")
   }

@@ -62,14 +62,14 @@ export async function initFilesPage() {
 
   main.addEventListener("click", async (event) => {
     if (event.target.dataset.js === 'btn-submit' && event.target.id !== "") {
-      const id = event.target.id;
-      const file = await getFileID(id);
-      const decrypt = decryptFile(cipherText, salt, iv, pass);
-      if (!decrypt) {
-        showModal("Contraseña incorrecta");
-      } else {
+      try {
+        const id = event.target.id;
+        const { cipherText, salt, iv } = await getFileID(id);
+        const decrypt = await decryptFile(cipherText, salt, iv, password);
         deleteFile(id);
         location.reload();
+      } catch (error) {
+        showModal("Contraseña incorrecta");
       }
     }
   })
