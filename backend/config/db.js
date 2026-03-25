@@ -6,9 +6,9 @@ db.exec(`
     CREATE TABLE IF NOT EXISTS files(
       id TEXT PRIMARY KEY,
       filename TEXT NOT NULL,
-      ciphertext BLOB NOT NULL,
+      data BLOB NOT NULL,
       salt BLOB NOT NULL,
-      IV BLOB NOT NULL
+      iv BLOB NOT NULL
       type TEXT NOT NULL,
     )
   `)
