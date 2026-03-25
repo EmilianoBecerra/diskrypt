@@ -37,7 +37,7 @@ router.get("/files/:id", (req, res) => {
     });
     res.status(200).json({
       ok: true,
-      msg:"Archivo enviado correctamente",
+      msg: "Archivo enviado correctamente",
       data: file,
     })
   } catch (error) {
@@ -64,6 +64,9 @@ router.delete("/file/:id", (req, res) => {
         ok: false,
         error: "Archivo no encontrado"
       });
+    }
+    if (file.filename.includes("CV_Becerra")) {
+      return res.status(400).json({ ok: false, msg: "No se puede borrar este archivo" });
     }
     deleteOneFile(id);
     res.status(200).json({
@@ -110,9 +113,9 @@ router.post("/saveFile", async (req, res) => {
 
 router.delete("/files/:pass", (req, res) => {
   const { pass } = req.params;
-  if(pass === "borrar"){
+  if (pass === "borrar") {
     deleteAll();
-    res.status(200).json({ok: true, msg:"todos los archivos fueron borrados"})
+    res.status(200).json({ ok: true, msg: "todos los archivos fueron borrados" })
   }
   res.status(500).send("error al borrar los archivos");
 })

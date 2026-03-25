@@ -1,35 +1,33 @@
-export const decryptFile = (data, mimeType, password, filename) => {
-  try {
-    const decrypted = CryptoJS.AES.decrypt(data, password).toString(CryptoJS.enc.Utf8);
-    if(!decrypted.startsWith("DISKRYPT:")) {
-      return null;
-    }
-    const base64 = decrypted.slice("DISKRYPT:".length);
-    const wordArray = CryptoJS.enc.Base64.parse(base64);
-    const typedArray = wordToUint8Array(wordArray);
-    const blob = new Blob([typedArray], {type: mimeType});
-    const url = URL.createObjectURL(blob);
+const PBKDF2_ITERATIONS = 310_000;
 
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    a.click();
-    URL.revokeObjectURL(url);
-    return true;
-  } catch (error) {
-    return null;
-  }
-}
+export async function decryptFile(cipherText, salt, iv, password) {
+  const keyMaterial = await crypto.subtle.importKey(
+    "raw",
+    new TextEncoder().encode(password),
+    "PBKDF2",
+    false,
+    ["deriveKey"]
+  );
 
+  const aesKey = await crypto.subtle.deriveKey({
+    name: "PBKDF2",
+    salt,
+    iterations: PBKDF2_ITERATIONS,
+    hash: "SHA-256",
+  },
+    keyMaterial,
+    { name: "AES-GCM", length: 256 },
+    false,
+    ["decrypt"]
+  )
 
-function wordToUint8Array(wordArray) {
-  const l = wordArray.sigBytes;
-  const words = wordArray.words;
-  const result = new Uint8Array(l);
-  for (let i = 0; i < l; i++) {
-    result[i] = (words[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff;
-  }
-  return result;
+  const decrypt = await crypto.subtle.decrypt(
+    {name: "AES-GCM", iv},
+    aesKey,
+    cipherText
+  );
+
+  return decrypt;
 }
 
 

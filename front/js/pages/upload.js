@@ -1,7 +1,7 @@
 import { saveFile } from "../api/filesApi.js";
 import { renderPassword } from "../ui/renderPassword.js";
 import { convertFile } from "../utils/ConvertFile.js";
-import { encryptWithSecretKey } from "../utils/encrypt.js"
+import { encryptFile } from "../utils/encrypt.js"
 import { removePasswordError } from "../utils/removePasswordError.js";
 import { validatePassword } from "../utils/validatePassword.js";
 import { showModal } from "../ui/modal.js";
@@ -70,10 +70,10 @@ export function initUploadPage() {
     }
 
     if (event.target.dataset.js === "btn-submit") {
-      fileEncrypt = await encryptWithSecretKey(fileBuffer, password);
+      fileEncrypt = await encryptFile(fileBuffer, password);
       if (fileEncrypt.length > 2) {
         const safeName = file.name.replace(/[^\w.\-]/g, "_");
-        const response = await saveFile(fileEncrypt, safeName, file.type);
+        const response = await saveFile(safeName, fileEncrypt.cipherText, fileEncrypt.salt, fileEncrypt.iv, file.type, );
         if (!response.ok) {
           showModal(`Error ${response.status}: ${response.data.msg ?? "Error al guardar"}`);
           return;

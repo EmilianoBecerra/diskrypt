@@ -3,7 +3,7 @@ import { renderFile } from "../ui/renderFile.js";
 import { decryptFile } from "../utils/decrypt.js";
 import { removePasswordError } from "../utils/removePasswordError.js";
 import { validatePassword } from "../utils/validatePassword.js";
-import {showModal} from "../ui/modal.js"
+import { showModal } from "../ui/modal.js"
 
 
 export async function initFilesPage() {
@@ -67,9 +67,7 @@ export async function initFilesPage() {
       if (!decrypt) {
         showModal("Contraseña incorrecta");
       } else {
-        if (!file.filename.includes("CV_Becerra")) {
-          deleteFile(id);
-        }
+        deleteFile(id);
         location.reload();
       }
     }
