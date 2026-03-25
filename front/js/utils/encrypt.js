@@ -1,7 +1,9 @@
 const PBKDF2_ITERATIONS = 310_000;
 
 export async function encryptFile(file, password) {
-  const fileBuffer = file.arrayBuffer();
+  const fileBuffer = file instanceof File 
+    ? await file.arrayBuffer() 
+    : file;
   const salt = crypto.getRandomValues(new Uint8Array(16));
   const iv = crypto.getRandomValues(new Uint8Array(12));
 
