@@ -86,24 +86,32 @@ router.delete("/file/:id", (req, res) => {
 router.post("/saveFile", async (req, res) => {
   try {
     const allowTypes = ["image/png", "image/jpeg", "application/pdf", "text/plain"];
-    const { filename, data, salt, iv, type} = req.body;
-    if (!filename || !data || !type) {
-      return res.status(400).json({
-        ok: false,
-        error: "Error al obtener los datos del archivo"
-      })
-    };
+    const { filename, data, salt, iv, type } = req.body;
+
+    if (!filename || !data || !salt || !iv || !type) {
+      return res.status(400).json({ ok: false, error: "Error al obtener los datos del archivo" });
+    }
+    if (!data?.length || !salt?.length || !iv?.length) {
+      return res.status(400).json({ ok: false, error: "Datos incorrectos" });
+    }
+
+    if (!/^[a-zA-Z0-9._-]+$/.test(filename)) {
+      return res.status(400).json({ ok: false, error: "Nombre de archivo inválido" });
+    }
+
     if (filename.length > 50) {
       return res.status(400).json({ ok: false, error: "Nombre demasiado largo" });
     }
+
     if (!allowTypes.includes(type)) {
       return res.status(400).json({ ok: false, error: "Tipo de dato no permitido" });
     }
-    const base64Regex = /^[A-Za-z0-9+/=]+$/;
-    if (!base64Regex.test(data)) {
-      return res.status(400).json({ ok: false, error: "Datos inválidos" });
-    }
-    const id = insertFile(filename, data, salt, iv, type);
+
+    const cipherText = Buffer.from(data);
+    const saltBuffer = Buffer.from(salt);
+    const ivBuffer = Buffer.from(iv);
+
+    const id = insertFile(filename, cipherText, saltBuffer, ivBuffer, type);
     if (!id) throw new Error("Error al guardar el archivo en la DB");
     res.status(200).json({ ok: true, msg: "Archivo guardado correctamente", data: id });
   } catch (error) {

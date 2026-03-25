@@ -28,7 +28,13 @@ export async function getAllFiles() {
 export async function saveFile(filename, data, salt, iv, type) {
   const response = await fetch(`${API_URL}/saveFile`, {
     method: "POST",
-    body: JSON.stringify({ filename, data, salt, iv, type }),
+    body: JSON.stringify({
+      filename,
+      data: Array.from(data),
+      salt: Array.from(salt),
+      iv: Array.from(iv),
+      type
+    }),
     headers: {
       "Content-Type": "application/json",
     }
