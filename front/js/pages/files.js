@@ -64,13 +64,13 @@ export async function initFilesPage() {
     if (event.target.dataset.js === 'btn-submit' && event.target.id !== "") {
       try {
         const id = event.target.id;
-        const { cipherText, salt, iv, type } = await getFileID(id);
-        const decrypt = await decryptFile(cipherText, salt, iv, password);
-        const blob = new Blob([decrypt], {type: decrypt.type})
+        const { cipherText, salt, iv, type, name } = await getFileID(id);
+        const decrypt = await decryptFile(cipherText, salt, iv, pass);
+        const blob = new Blob([decrypt], {type: type})
         const objectURL = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = objectURL;
-        a.download = file.filename;
+        a.download = name;
         a.click();
         deleteFile(id);
         URL.revokeObjectURL(objectURL);
