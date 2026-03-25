@@ -10,6 +10,7 @@ export async function getFileID(id) {
     const cipherText = new Uint8Array(data.data.data);
     const salt = new Uint8Array(data.salt.data);
     const iv = new Uint8Array(data.iv.data);
+    console.log()
     return { cipherText, salt, iv, type, name };
   } catch (error) {
     console.error("Error al obtener el archivo")
