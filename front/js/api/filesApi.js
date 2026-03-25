@@ -25,10 +25,10 @@ export async function getAllFiles() {
   }
 }
 
-export async function saveFile(file, name, type) {
+export async function saveFile(id, filename, data, salt, iv, type) {
   const response = await fetch(`${API_URL}/saveFile`, {
     method: "POST",
-    body: JSON.stringify({ file, name, type }),
+    body: JSON.stringify({ filename, data, salt, iv, type }),
     headers: {
       "Content-Type": "application/json",
     }
