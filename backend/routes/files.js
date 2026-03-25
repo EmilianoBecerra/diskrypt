@@ -86,24 +86,24 @@ router.delete("/file/:id", (req, res) => {
 router.post("/saveFile", async (req, res) => {
   try {
     const allowTypes = ["image/png", "image/jpeg", "application/pdf", "text/plain"];
-    const { name, file, salt, iv, type} = req.body;
-    if (!name || !file || !type) {
+    const { filename, data, salt, iv, type} = req.body;
+    if (!filename || !data || !type) {
       return res.status(400).json({
         ok: false,
         error: "Error al obtener los datos del archivo"
       })
     };
-    if (name.length > 50) {
+    if (filename.length > 50) {
       return res.status(400).json({ ok: false, error: "Nombre demasiado largo" });
     }
     if (!allowTypes.includes(type)) {
       return res.status(400).json({ ok: false, error: "Tipo de dato no permitido" });
     }
     const base64Regex = /^[A-Za-z0-9+/=]+$/;
-    if (!base64Regex.test(file)) {
+    if (!base64Regex.test(data)) {
       return res.status(400).json({ ok: false, error: "Datos inválidos" });
     }
-    const id = insertFile(name, file, salt, iv, type);
+    const id = insertFile(filename, data, salt, iv, type);
     if (!id) throw new Error("Error al guardar el archivo en la DB");
     res.status(200).json({ ok: true, msg: "Archivo guardado correctamente", data: id });
   } catch (error) {
