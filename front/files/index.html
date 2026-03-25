@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Diskrypt</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap"
+    rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="../js/index.js" type="module" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+  <link rel="stylesheet" href="../style/style.css">
+</head>
+
+<body>
+  <header>
+    <h1>Diskrypt</h1>
+    <h3 class="subtitle">
+      Compartí archivos encriptados y sin identificación.
+    </h3>
+    <a href="/" class="navBar-link">Ir al inicio</a>
+  </header>
+  <main id="main-files">
+  </main>
+
+  <template id="template-files">
+    <p id="msg-nofiles" class="noFiles">No hay archivos guardados.</p>
+    <div id="allFiles" class="allFiles"></div>
+  </template>
+
+  <template data-js="template-password">
+    <form onsubmit="return false">
+      <input type="password" placeholder="Ingresa contraseña" name="password" data-js="password">
+      <ul data-js="passIntroductions" class="passIntroductions"></ul>
+      <button data-js="btn-submit" disabled></button>
+    </form>
+  </template>
+
+</body>
+
+</html>

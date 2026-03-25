@@ -15,6 +15,7 @@ export async function initFilesPage() {
   //si el array que viene del backend está vacío. ↓
   try {
     files = await getAllFiles();
+    console.log(files);
     if (!files) throw new Error("Error al obtener archivos");
   } catch (error) {
     console.error(error);
