@@ -8,9 +8,9 @@ db.exec(`
       filename TEXT NOT NULL,
       data BLOB NOT NULL,
       salt BLOB NOT NULL,
-      iv BLOB NOT NULL
-      typeFile TEXT NOT NULL,
-    )
+      iv BLOB NOT NULL,
+      typeFile TEXT NOT NULL
+      )
   `)
 
 
